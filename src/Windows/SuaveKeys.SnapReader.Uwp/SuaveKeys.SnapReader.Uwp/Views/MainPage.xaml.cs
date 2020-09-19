@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuaveKeys.SnapReader.Uwp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +23,11 @@ namespace SuaveKeys.SnapReader.Uwp
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private readonly MainPageViewModel _vm = new MainPageViewModel();
         public MainPage()
         {
             this.InitializeComponent();
+            DataContext = _vm;
         }
     }
 }

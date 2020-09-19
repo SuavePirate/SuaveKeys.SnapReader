@@ -1,8 +1,10 @@
-﻿using System;
+﻿using SuaveKeys.SnapReader.Uwp.Services;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TinyIoC;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -22,13 +24,20 @@ namespace SuaveKeys.SnapReader.Uwp
     /// </summary>
     sealed partial class App : Application
     {
+        public readonly TinyIoCContainer Container;
+        public static new App Current;
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
         public App()
         {
+            Current = this;
             this.InitializeComponent();
+            var container = new TinyIoCContainer();
+            container.Register<ISuaveKeysAuthSettings, SuaveKeysAuthSettings>();
+            container.Register<ISuaveKeysService, SuaveKeysService>();
+            Container = container;
             this.Suspending += OnSuspending;
         }
 
