@@ -51,18 +51,15 @@ namespace SuaveKeys.SnapReader.Uwp.ViewModels
                     Error = "This device does not support the capture requirements";
                     return;
                 }
-                // The GraphicsCapturePicker follows the same pattern the
-                // file pickers do.
-                var picker = new GraphicsCapturePicker();
-                GraphicsCaptureItem item = await picker.PickSingleItemAsync();
-
-                // The item may be null if the user dismissed the
-                // control without making a selection or hit Cancel.
-                if (item != null)
+                if (!_isRecording)
                 {
-                    // We'll define this method later in the document.
-                    //StartCaptureInternal(item);
-                    // TODO: start capturing frames and running through some sort of qr reader
+                    await SetupEncoding();
+
+                }
+                else
+                {
+                    Stop();
+                    Cleanup();
                 }
             });
         }

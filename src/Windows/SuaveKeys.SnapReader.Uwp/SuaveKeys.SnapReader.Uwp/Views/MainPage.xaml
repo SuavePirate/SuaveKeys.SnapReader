@@ -11,7 +11,7 @@
         <TextBlock HorizontalAlignment="Center" Text="Welcome to the Suave Keys Snap Reader. You can stream an application that is showing your snapchat window. Use the Suave Keys lense in Snapchat, and this will execute commands for the gestures you run."/>
         <Button HorizontalAlignment="Center" Content="Sign in to Suave Keys" Command="{Binding SuaveKeysSignInCommand}"/>
         <TextBlock HorizontalAlignment="Center" Text="You are signed in!" Visibility="{Binding SuaveKeysSignInVisibility}"/>
-        <Button HorizontalAlignment="Center" Content="Start Listening" Command="{Binding ToggleStartCommand}"/>
+        <Button HorizontalAlignment="Center" Content="Toggle Listening" Command="{Binding ToggleStartCommand}"/>
 
         <TextBlock Text="{Binding Error}" />
     </StackPanel>
