@@ -6,22 +6,28 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.Devices.PointOfService;
 using Windows.Graphics;
 using Windows.Graphics.Capture;
 using Windows.Graphics.DirectX;
 using Windows.Graphics.DirectX.Direct3D11;
+using Windows.Graphics.Imaging;
 using Windows.Media.Core;
 using Windows.Media.MediaProperties;
 using Windows.Media.Transcoding;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
+using ZXing;
+using ZXing.QrCode;
 
 namespace SuaveKeys.SnapReader.Uwp.ViewModels
 {
@@ -67,6 +73,7 @@ namespace SuaveKeys.SnapReader.Uwp.ViewModels
         private IDirect3DDevice _device;
         private bool _isRecording;
         private bool _closed;
+        private bool _isSending;
         private Device _sharpDxD3dDevice;
         private GraphicsCaptureItem _captureItem;
         private Texture2D _composeTexture;
@@ -82,6 +89,7 @@ namespace SuaveKeys.SnapReader.Uwp.ViewModels
         private Direct3D11CaptureFramePool _framePool;
         private GraphicsCaptureSession _session;
         private Direct3D11CaptureFrame _currentFrame;
+
         private async Task SetupEncoding()
         {
             if (!GraphicsCaptureSession.IsSupported())
@@ -153,20 +161,12 @@ namespace SuaveKeys.SnapReader.Uwp.ViewModels
                 _transcoder = new MediaTranscoder();
                 _transcoder.HardwareAccelerationEnabled = true;
 
-
-                // Create a destination file - Access to the VideosLibrary requires the "Videos Library" capability
-                var folder = KnownFolders.VideosLibrary;
-                var name = DateTime.Now.ToString("yyyyMMdd-HHmm-ss");
-                var file = await folder.CreateFileAsync($"{name}.mp4");
-
-                using (var stream = await file.OpenAsync(FileAccessMode.ReadWrite))
-
+                using (var stream = new InMemoryRandomAccessStream())
                     await EncodeAsync(stream);
 
             }
             catch (Exception ex)
             {
-
                 return;
             }
         }
@@ -183,7 +183,7 @@ namespace SuaveKeys.SnapReader.Uwp.ViewModels
                 await transcode.TranscodeAsync();
             }
         }
-        private void OnMediaStreamSourceSampleRequested(MediaStreamSource sender, MediaStreamSourceSampleRequestedEventArgs args)
+        private async void OnMediaStreamSourceSampleRequested(MediaStreamSource sender, MediaStreamSourceSampleRequestedEventArgs args)
         {
             if (_isRecording && !_closed)
             {
@@ -201,6 +201,7 @@ namespace SuaveKeys.SnapReader.Uwp.ViewModels
                         var timeStamp = frame.SystemRelativeTime;
 
                         var sample = MediaStreamSample.CreateFromDirect3D11Surface(frame.Surface, timeStamp);
+
                         args.Request.Sample = sample;
                     }
                 }
@@ -247,9 +248,32 @@ namespace SuaveKeys.SnapReader.Uwp.ViewModels
             _session = _framePool.CreateCaptureSession(_captureItem);
             _session.StartCapture();
         }
-        private void OnFrameArrived(Direct3D11CaptureFramePool sender, object args)
+        private async void OnFrameArrived(Direct3D11CaptureFramePool sender, object args)
         {
             _currentFrame = sender.TryGetNextFrame();
+
+
+            BarcodeReader reader = new BarcodeReader();
+
+            reader.AutoRotate = true;
+            reader.Options.TryHarder = true;
+            reader.Options.PureBarcode = false;
+            reader.Options.PossibleFormats = new List<BarcodeFormat>();
+            reader.Options.PossibleFormats.Add(BarcodeFormat.QR_CODE);
+
+            var bitmap = await SoftwareBitmap.CreateCopyFromSurfaceAsync(_currentFrame.Surface).AsTask();
+            var result = reader.Decode(bitmap);
+            if (!string.IsNullOrEmpty(result?.Text) && result.Text.StartsWith("suavekeys|expression"))
+            {
+                Debug.WriteLine("WOOHOO WE FOUND A CODE");
+                if(!_isSending)
+                {
+                    _isSending = true;
+                    var command = result.Text.Split('|')[2];
+                    await _suaveKeysService.SendCommandAsync(command);
+                    _isSending = false;
+                }
+            }
             _frameEvent.Set();
         }
         private void OnClosed(GraphicsCaptureItem sender, object args)
