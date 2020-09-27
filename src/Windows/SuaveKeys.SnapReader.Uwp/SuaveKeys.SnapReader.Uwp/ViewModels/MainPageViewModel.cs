@@ -263,7 +263,7 @@ namespace SuaveKeys.SnapReader.Uwp.ViewModels
 
             var bitmap = await SoftwareBitmap.CreateCopyFromSurfaceAsync(_currentFrame.Surface).AsTask();
             var result = reader.Decode(bitmap);
-            if (!string.IsNullOrEmpty(result?.Text) && result.Text.StartsWith("suavekeys|expression"))
+            if (!string.IsNullOrEmpty(result?.Text) && (result.Text.StartsWith("suavekeys|expression") || result.Text.StartsWith("suavekeys|gesture")))
             {
                 Debug.WriteLine("WOOHOO WE FOUND A CODE");
                 if(!_isSending)
