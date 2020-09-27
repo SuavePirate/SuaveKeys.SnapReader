@@ -349,3 +349,4 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 /src/Windows/SuaveKeys.SnapReader.Uwp/SuaveKeys.SnapReader.Uwp/Services/SuaveKeysAuthSettings.cs
+/src/Android/.idea
