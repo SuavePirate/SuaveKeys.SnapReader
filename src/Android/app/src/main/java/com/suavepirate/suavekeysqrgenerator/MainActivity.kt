@@ -22,20 +22,20 @@ class MainActivity : AppCompatActivity(), SnapCreativeKitCompletionCallback {
             // Create a SnapLensContent object with LensID to be shared
             val snapLensContent = SnapLensContent("26b3d66e-4558-4081-9175-f51f7b4f6847")
 
-//            // Optionally build SnapLensLaunchData, add to snapLensContent
-//
-//            // Optionally build SnapLensLaunchData, add to snapLensContent
+            // Optionally build SnapLensLaunchData, add to snapLensContent
+
+            // Optionally build SnapLensLaunchData, add to snapLensContent
             val launchData = SnapLensLaunchData.Builder()
-                .addStringKeyPair("test_text", "Hello from android")
+                .addStringKeyPair("test_text", "Link your Suave Keys Snap Reader app to your Suave Keys account to get started!")
                 .build()
 
             snapLensContent.snapLensLaunchData = launchData
-//
-//            // Optionally add an attachmentUrl and caption to the content
-//
-//            // Optionally add an attachmentUrl and caption to the content
-//            snapLensContent.attachmentUrl = "https://snapchat.com"
-//            snapLensContent.captionText = "Check out this Snap Kit Lens!"
+
+            // Optionally add an attachmentUrl and caption to the content
+
+            // Optionally add an attachmentUrl and caption to the content
+            snapLensContent.attachmentUrl = "https://twitch.tv/suave_pirate"
+            snapLensContent.captionText = "Learn how we built this live!"
 
             // Use the SnapCreative API to share the snapLensContent
 
