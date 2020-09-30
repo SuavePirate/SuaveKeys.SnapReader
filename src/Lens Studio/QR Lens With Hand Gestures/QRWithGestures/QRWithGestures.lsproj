@@ -1,9 +1,9 @@
 {
-    "lens_id": "",
+    "lens_id": "26b3d66e-4558-4081-9175-f51f7b4f6847",
     "document_id": "bLAg24l1Qq6IwCVAXEPn",
     "original_document_id": "bLAg24l1Qq6IwCVAXEPn",
     "version": "24",
-    "lastChanged": "1601229180656",
+    "lastChanged": "1601507586711",
     "preview": "icon.png",
     "videoPreview": "preview.mp4",
     "videoPreviewUpdateTime": "",
@@ -31,6 +31,9 @@
                 [
                     [
                         "Behavior"
+                    ],
+                    [
+                        "Hand Gesture Resources"
                     ],
                     [
                         "Hand Gesture Resources",
@@ -181,6 +184,9 @@
                         "MaterialDuplicator"
                     ],
                     [
+                        "Textures"
+                    ],
+                    [
                         "Textures",
                         "echopark"
                     ],
@@ -219,6 +225,9 @@
                         "Tween",
                         "TweenTypes",
                         "TweenScreenTransform"
+                    ],
+                    [
+                        "UseLaunchData"
                     ],
                     [
                         "WorldObjectController"
@@ -772,7 +781,6 @@
                     "1583184902114574:23235456",
                     "1583184977863969:23266868",
                     "1583265143536196:4541232",
-                    "1583280485263511:71769",
                     "1583284534637617:4132337",
                     "1583284805074792:4595585",
                     "1583284825843314:4620594",
@@ -838,7 +846,8 @@
                     "1583187336214279:346748",
                     "1583187358827478:380344",
                     "1583264782642553:4188513",
-                    "1601225726766035:325871"
+                    "1601225726766035:325871",
+                    "1601505532241903:472152"
                 ]
             ]
         },
@@ -1952,6 +1961,14 @@
                     "sourceFilePath": "",
                     "additionalProperties": "",
                     "flags": "1"
+                },
+                {
+                    "resId": "188",
+                    "uid": "1601505794558366:580217",
+                    "name": "Files\/File193.js",
+                    "sourceFilePath": "",
+                    "additionalProperties": "",
+                    "flags": "1"
                 }
             ],
             "MaterialUpdateManager": {
@@ -2304,6 +2321,20 @@
                                     "attachTop": "false"
                                 }
                             }
+                        },
+                        {
+                            "k": "1601507019833284:720133",
+                            "v": {
+                                "isBasicMode": "true",
+                                "basicModeSetup": {
+                                    "fixWidth": "false",
+                                    "fixHeight": "false",
+                                    "attachBottom": "false",
+                                    "attachLeft": "false",
+                                    "attachRight": "false",
+                                    "attachTop": "false"
+                                }
+                            }
                         }
                     ],
                     "generalData": ""
@@ -2358,7 +2389,11 @@
                 "43": "1601225889042628:362385",
                 "44": "1601225889061690:362524",
                 "45": "1601226900343891:1406288",
-                "46": "1601227271835949:1920488"
+                "46": "1601227271835949:1920488",
+                "47": "1601505483878746:401797",
+                "48": "1601505532241903:472152",
+                "49": "1601506877116390:533444",
+                "50": "1601507019833074:720132"
             }
         },
         "LayerComponent": {
@@ -2828,6 +2863,10 @@
                 {
                     "k": "192",
                     "v": "Files\/File192.lsmat"
+                },
+                {
+                    "k": "193",
+                    "v": "Files\/File193.js"
                 }
             ]
         },
@@ -3183,6 +3222,10 @@
                     {
                         "k": "7779",
                         "v": "WorldObjectController\/Red_Panda_FBX [REMOVE_ME]\/Materials\/red_panda_pbr.lsmat"
+                    },
+                    {
+                        "k": "7780",
+                        "v": "UseLaunchData.js"
                     }
                 ],
                 "hashes": [
@@ -3645,14 +3688,18 @@
                     {
                         "k": "7779",
                         "v": "5ccf8063a10972e92194687757079e1d"
+                    },
+                    {
+                        "k": "7780",
+                        "v": "d71679ce74bd30d7ca8b955e5ce4eccc"
                     }
                 ],
                 "publicState": {
                     "tree": {
                         "isFolder": "true",
-                        "lastModified": "2020-09-27T13:46:15",
+                        "lastModified": "2020-09-30T19:11:39",
                         "name": "Public",
-                        "hash": "bf7071f583c2e43b2cf12f058f817c0a",
+                        "hash": "d2fa7e06bd9098ded8d739193fe6b420",
                         "children": [
                             {
                                 "isFolder": "false",
@@ -4242,6 +4289,13 @@
                                         ]
                                     }
                                 ]
+                            },
+                            {
+                                "isFolder": "false",
+                                "lastModified": "2020-09-30T19:11:38",
+                                "name": "UseLaunchData.js",
+                                "hash": "d71679ce74bd30d7ca8b955e5ce4eccc",
+                                "children": ""
                             },
                             {
                                 "isFolder": "true",
@@ -6631,16 +6685,25 @@
                                 ]
                             }
                         ]
+                    },
+                    {
+                        "name": "UseLaunchData",
+                        "type": "4",
+                        "subtype": "0",
+                        "resourceId": "188",
+                        "dependency": "0",
+                        "uid": "1601505794558366:580217",
+                        "fileId": "193",
+                        "originalId": "18446744073709551615",
+                        "publicId": "7780",
+                        "source": "C:\/Users\/alexa\/AppData\/Local\/Temp\/Lens Studio-UqXNOK\/\/system\/\/emergencyFiles\/emergencyJs.js",
+                        "additional": ""
                     }
                 ]
             }
         },
         "InspectorController": {
-            "selection": {
-                "objects": [
-                    "1583185365041490:33532"
-                ]
-            }
+            "selection": ""
         },
         "EffectsController": {
             "1": "",
